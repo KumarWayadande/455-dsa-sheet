@@ -12,7 +12,7 @@ int main()
 {
     vector<int> nums = {1, 1, 1, 2, 2, 2, 3, 4, 4, 5};
 
-    int key = 3;
+    int key = 30;
 
     bool flag = false;
     for (int i = 0; i < nums.size(); i++)
