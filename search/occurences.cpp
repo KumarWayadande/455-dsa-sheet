@@ -50,30 +50,28 @@ public:
         return ans;
     }
 
-    vector<int> searchRange(vector<int> &nums, int target)
+    int searchRange(vector<int> &nums, int target)
     {
-        vector<int> result;
+        int startIndex = getStartIndex(nums, target);
+        int endIndex = getEndIndex(nums, target);
 
-        result.insert(result.end(), getStartIndex(nums, target));
-        result.insert(result.end(), getEndIndex(nums, target));
-        return result;
+        if (startIndex == -1 || endIndex == -1)
+            return 0;
+        return ((endIndex - startIndex) + 1);
     }
 };
 
 int main()
 {
-    vector<int> nums = {2, 2, 3, 3, 3, 3, 4};
+    vector<int> nums = {1, 1, 2, 2, 2, 2, 3};
     // vector<int> nums = {};
-    int target = 100;
+    int target = 2;
 
-    Solution s;
+    Solution s; 
 
-    vector<int> result = s.searchRange(nums, target);
+    int result = s.searchRange(nums, target);
     cout << "\n Result \n";
-
-    for (auto x : result)
-        cout << x << "  ";
-    // cout << "Occurences : " << (result[1] - result[0]) + 1;
+    cout << "Occurences : " << result;
 
     return 0;
 }
