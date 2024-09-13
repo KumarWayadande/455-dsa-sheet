@@ -21,7 +21,7 @@ public:
             }
             else if (nums[med] > key)
             {
-                high = med;
+                high = med - 1;
             }
             else if (nums[med] < key)
             {
