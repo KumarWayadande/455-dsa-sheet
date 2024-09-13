@@ -7,8 +7,8 @@ class Solution
 public:
     int search(vector<int> &nums, int target)
     {
-        int n = nums.size() - 1;
-        int med = 0, low = 0, high = n;
+        int n = nums.size();
+        int med = 0, low = 0, high = n - 1;
 
         while (low <= high)
         {
