@@ -27,7 +27,24 @@ public:
     static Node *createNode();
     static int length(Node *);
     static void notify(string, int);
+    bool search(int);
 };
+
+bool Node ::search(int data)
+{
+    Node *temp = this;
+
+    while (temp != nullptr)
+    {
+        if (data == temp->data)
+        {
+            return true;
+        }
+        temp = temp->next;
+    }
+
+    return false;
+}
 
 void Node ::insertAtLocation(Node *newNode, int loc)
 {
@@ -173,7 +190,7 @@ int main()
     Node *head = nullptr;
     int choice = 0;
 
-    while (choice != 10)
+    while (choice != 11)
     {
         cout << endl
              << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -200,7 +217,9 @@ int main()
         cout << endl
              << "9. Delete Any Node";
         cout << endl
-             << "10. Exit";
+             << "10. Search";
+        cout << endl
+             << "11. Exit";
         cout << endl
              << "  Enter your choice : ";
         cin >> choice;
@@ -342,8 +361,23 @@ int main()
                 Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
 
             break;
-
         case 10:
+            if (head != nullptr)
+            {
+                cout << "\n Enter data : ";
+                int data;
+                cin >> data;
+                if (head->search(data))
+                    Node::notify("Node Found");
+                else
+                    Node::notify("Node Not Found");
+            }
+            else
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
+
+            break;
+
+        case 11:
             Node::notify("Thank You Visit Again");
             break;
 
