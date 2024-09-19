@@ -23,21 +23,26 @@ public:
     Node *getSecondLastNode(Node *);
     Node *getLastNode(Node *);
     static Node *createNode();
+    static void notify(string, int);
 };
+
+void Node ::notify(string message, int data = 0)
+{
+    cout << endl
+         << "!!! " << message << " !!!";
+}
 
 Node *Node ::deleteLastNode()
 {
-    Node *temp = nullptr;
-    if (this->next == nullptr)
-    {
-        delete this;
-    }
+    Node *temp = this;
+    if (temp->next == nullptr)
+        temp = nullptr;
     else
     {
-        Node *tempNew = getSecondLastNode(this);
-        Node *nodeTobeDeleted = tempNew->next;
-        tempNew->next = nullptr;
-        return nodeTobeDeleted;
+        temp = getSecondLastNode(this);
+        Node *nodeTobeDeleted = temp->next;
+        temp->next = nullptr;
+        delete nodeTobeDeleted;
     }
     return temp;
 }
@@ -92,17 +97,17 @@ Node *Node ::getSecondLastNode(Node *head)
     return temp;
 }
 
-
-Node * Node :: deleteFirstNode(){
-    Node * temp = nullptr;
-    if(this -> next == nullptr){
-        
+Node *Node ::deleteFirstNode()
+{
+    Node *temp = nullptr;
+    if (this->next == nullptr)
+    {
     }
-    else{
-        Node * nodeTobeDeleted = this;
-
+    else
+    {
+        Node *nodeTobeDeleted = this;
     }
-    
+
     return temp;
 }
 
@@ -171,12 +176,10 @@ int main()
             {
                 head = Node::createNode();
                 if (head)
-                    cout << endl
-                         << "!!! List Created Successfully !!!";
+                    Node::notify("List Created Successfully");
             }
             else
-                cout << endl
-                     << "!!! List already exists !!!";
+                Node::notify("List Already Exists");
             break;
         case 2:
             if (head != nullptr)
@@ -186,89 +189,67 @@ int main()
                 head->display();
             }
             else
-                cout << endl
-                     << "!!! Check if list exists otherwise create a list first !!!";
+                Node::notify("Check if list exists otherwise create a list first");
             break;
         case 3:
             if (head != nullptr)
             {
                 head->deleteList();
                 head = nullptr;
-                cout << endl
-                     << "!!! List Deleted !!!" << endl;
+                Node::notify("List Deleted Successfully");
             }
             else
-                cout << endl
-                     << "!!! Check if list exists otherwise create a list first !!!";
+                Node ::notify("Check if list exists otherwise create a list first");
             break;
         case 4:
             if (head != nullptr)
             {
                 Node *newNode = Node::createNode();
                 head->insert(newNode);
-                cout << endl
-                     << "!!! Node inserted Successfully !!!";
+                Node::notify("Node inserted Successfully");
             }
             else
-                cout << endl
-                     << "!!! Problem occured while inserting a node | Check if list exists otherwise create a list first !!!";
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
             break;
         case 5:
             if (head != nullptr)
             {
                 Node *newNode = Node::createNode();
                 head = head->insertAtFirst(newNode);
-                cout << endl
-                     << "!!! Node inserted Successfully !!!";
+                Node::notify("Node inserted Successfully");
             }
             else
-                cout << endl
-                     << "!!! Problem occured while inserting a node | Check if list exists otherwise create a list first !!!";
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
             break;
         case 7:
             if (head != nullptr)
             {
-                Node *result = head->deleteLastNode();
-                if (result == nullptr)
+                if (head->deleteLastNode() == nullptr)
                 {
-                    cout << "Deleted Node : ";
-                    head->display();
                     head = nullptr;
                 }
-                else
-                {
-                    cout << "Deleted Node : ";
-                    result->display();
-                    delete result;
-                }
-
-                cout << endl
-                     << "!!! Node deleted Successfully !!!";
+                Node::notify("Node deleted Successfully");
             }
             else
-                cout << endl
-                     << "!!! Problem occured while inserting a node | Check if list exists otherwise create a list first !!!";
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
             break;
         case 8:
             if (head != nullptr)
             {
 
-                cout << endl
-                     << "!!! Node inserted Successfully !!!";
+                Node::notify("Node inserted Successfully");
             }
             else
-                cout << endl
-                     << "!!! Problem occured while inserting a node | Check if list exists otherwise create a list first !!!";
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
+
             break;
 
         case 10:
-            cout << endl
-                 << "!!! Thank You Visit Again !!!";
+            Node::notify("Thank You Visit Again");
             break;
 
         default:
-            cout << endl
-                 << "!!! Please enter correct choice !!!";
+            Node::notify("Please enter correct choice");
             break;
         }
     }
