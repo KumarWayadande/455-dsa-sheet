@@ -15,16 +15,51 @@ public:
 
     void insert(Node *);
     Node *insertAtFirst(Node *);
+    void insertAtLocation(Node *, int);
 
     void deleteList();
     Node *deleteLastNode();
     Node *deleteFirstNode();
+    void deleteAtLocation(int loc);
 
     Node *getSecondLastNode(Node *);
     Node *getLastNode(Node *);
     static Node *createNode();
+    static int length(Node *);
     static void notify(string, int);
 };
+
+void Node ::insertAtLocation(Node *newNode, int loc)
+{
+    Node *temp = this;
+    for (int i = 1; i < (loc - 1); i++)
+        temp = temp->next;
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+void Node ::deleteAtLocation(int loc)
+{
+    Node *temp = this;
+    for (int i = 1; i < (loc - 1); i++)
+        temp = temp->next;
+
+    Node *node = temp->next;
+    temp->next = temp->next->next;
+    delete node;
+}
+
+int Node ::length(Node *head)
+{
+    int len = 0;
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+        len++;
+        temp = temp->next;
+    }
+    return len;
+}
 
 void Node ::notify(string message, int data = 0)
 {
@@ -99,13 +134,14 @@ Node *Node ::getSecondLastNode(Node *head)
 
 Node *Node ::deleteFirstNode()
 {
-    Node *temp = nullptr;
+    Node *temp = this;
     if (this->next == nullptr)
-    {
-    }
+        temp = nullptr;
     else
     {
-        Node *nodeTobeDeleted = this;
+        Node *nodeTobeDeleted = temp;
+        temp = temp->next;
+        delete nodeTobeDeleted;
     }
 
     return temp;
@@ -221,6 +257,38 @@ int main()
             else
                 Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
             break;
+        case 6:
+            if (head != nullptr)
+            {
+                int len = Node::length(head);
+                cout << "\nEnter Location (" << 1 << " - " << len << ") :";
+                int loc;
+                cin >> loc;
+
+                if (loc <= 0)
+                    Node::notify("Wrong Location");
+                else if (loc == 1)
+                {
+                    Node *newNode = Node::createNode();
+                    head = head->insertAtFirst(newNode);
+                    Node::notify("Node inserted Successfully");
+                }
+                else if (loc > len)
+                {
+                    Node *newNode = Node::createNode();
+                    head->insert(newNode);
+                    Node::notify("Node inserted Successfully");
+                }
+                else
+                {
+                    Node *newNode = Node::createNode();
+                    head->insertAtLocation(newNode, loc);
+                    Node::notify("Node inserted Successfully");
+                }
+            }
+            else
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
+            break;
         case 7:
             if (head != nullptr)
             {
@@ -236,8 +304,39 @@ int main()
         case 8:
             if (head != nullptr)
             {
+                head = head->deleteFirstNode();
+                Node::notify("Node deleted Successfully");
+            }
+            else
+                Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
 
-                Node::notify("Node inserted Successfully");
+            break;
+        case 9:
+            if (head != nullptr)
+            {
+                int len = Node::length(head);
+                cout << "\nEnter Location (" << 1 << " - " << len << ") :";
+                int loc;
+                cin >> loc;
+
+                if (loc <= 0 || loc > len)
+                    Node::notify("Wrong Location");
+                else if (loc == 1)
+                {
+                    head = head->deleteFirstNode();
+                    Node::notify("Node deleted Successfully");
+                }
+                else if (loc == len)
+                {
+                    if (head->deleteLastNode() == nullptr)
+                        head = nullptr;
+                    Node::notify("Node deleted Successfully");
+                }
+                else
+                {
+                    head->deleteAtLocation(loc);
+                    Node::notify("Node deleted Successfully");
+                }
             }
             else
                 Node::notify("Problem occured while inserting a node | Check if list exists otherwise create a list first");
