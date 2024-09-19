@@ -8,17 +8,21 @@ private:
     Node *next;
 
 public:
-    void insert(Node *);
-    Node *insertAtFirst(Node *);
-    Node *getLastNode(Node *);
-    Node *getSecondLastNode(Node *);
-    static Node *createNode();
-    void deleteList();
-    Node *deleteLastNode();
-    void display();
     Node() { data = 0, next = nullptr; }
     Node(int);
     Node(Node *);
+    void display();
+
+    void insert(Node *);
+    Node *insertAtFirst(Node *);
+
+    void deleteList();
+    Node *deleteLastNode();
+    Node *deleteFirstNode();
+
+    Node *getSecondLastNode(Node *);
+    Node *getLastNode(Node *);
+    static Node *createNode();
 };
 
 Node *Node ::deleteLastNode()
@@ -85,6 +89,20 @@ Node *Node ::getSecondLastNode(Node *head)
     while (temp->next->next != nullptr)
         temp = temp->next;
 
+    return temp;
+}
+
+
+Node * Node :: deleteFirstNode(){
+    Node * temp = nullptr;
+    if(this -> next == nullptr){
+        
+    }
+    else{
+        Node * nodeTobeDeleted = this;
+
+    }
+    
     return temp;
 }
 
@@ -226,6 +244,17 @@ int main()
 
                 cout << endl
                      << "!!! Node deleted Successfully !!!";
+            }
+            else
+                cout << endl
+                     << "!!! Problem occured while inserting a node | Check if list exists otherwise create a list first !!!";
+            break;
+        case 8:
+            if (head != nullptr)
+            {
+
+                cout << endl
+                     << "!!! Node inserted Successfully !!!";
             }
             else
                 cout << endl
