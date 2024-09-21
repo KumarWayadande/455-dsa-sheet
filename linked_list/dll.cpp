@@ -70,6 +70,7 @@ void Node ::deleteAtLocation(int loc)
 
     Node *node = temp->next;
     temp->next = temp->next->next;
+    temp->next->next->prev = temp;
     delete node;
 }
 
