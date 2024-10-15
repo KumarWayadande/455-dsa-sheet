@@ -2,27 +2,49 @@
 #include <vector>
 using namespace std;
 
-int selectionSort(vector<int> &nums)
-{
+// int selectionSort(vector<int> &nums)
+// {
  
+//     int n = nums.size();
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         int max = nums[i];
+//         int maxIndex = i;
+//         for (int j = i; j < n; j++)
+//         {
+//             if (max > nums[j])
+//             {
+//                 max = nums[j];
+//                 maxIndex = j;
+//             }
+//         }
+//         int temp = nums[i];
+//         nums[i] = max;
+//         nums[maxIndex] = temp;
+//     }
+// }
+
+int selectionSort(vector<int> &nums){
+    int min, minIndex;
+
     int n = nums.size();
 
-    for (int i = 0; i < n; i++)
-    {
-        int max = nums[i];
-        int maxIndex = i;
-        for (int j = i; j < n; j++)
-        {
-            if (max > nums[j])
-            {
-                max = nums[j];
-                maxIndex = j;
+    for(int i = 0; i < (n - 1); i++){
+        min = nums[i];
+        minIndex = i;
+        for(int j = i; j < n; j++){
+            if(nums[j] < min){
+                min = nums[j];
+                minIndex = j;
             }
         }
-        int temp = nums[i];
-        nums[i] = max;
-        nums[maxIndex] = temp;
+        int temp = nums[minIndex];
+        nums[minIndex] = nums[i];
+        nums[i] = temp;
     }
+
+    return 0;
 }
 
 void display(vector<int> &nums)
