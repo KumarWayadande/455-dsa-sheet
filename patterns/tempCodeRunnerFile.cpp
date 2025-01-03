@@ -1,1 +1,1 @@
-else
+for (int j = 0; j <= (row - i); j++)
